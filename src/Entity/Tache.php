@@ -7,7 +7,10 @@ use App\Repository\TacheRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *          collectionOperations={"GET"},
+ *          itemOperations={"GET", "PUT", "DELETE", "PATCH"}
+ * )
  * @ORM\Entity(repositoryClass=TacheRepository::class)
  */
 class Tache
