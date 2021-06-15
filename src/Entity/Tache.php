@@ -5,11 +5,12 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TacheRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *          collectionOperations={"GET"},
- *          itemOperations={"GET", "PUT", "DELETE", "PATCH"}
+ *          normalizationContext={"groups"={"tache:read"}},
+ *          denormalizationContext={"groups"={"tache:write"}}
  * )
  * @ORM\Entity(repositoryClass=TacheRepository::class)
  */
@@ -19,36 +20,44 @@ class Tache
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("tache:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"tache:read", "tache:write"})
      */
     private $titre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"tache:read"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"tache:read", "tache:write"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"tache:read"})
      */
     private $isPublished;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("tache:read")
      */
     private $publishedAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("tache:read")
      */
     private $updatedAt;
 
